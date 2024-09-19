@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 import {
   Text,
   View,
@@ -17,6 +16,7 @@ import { APIURL } from "@env";
 import { Video } from "expo-av";
 import { useRouter } from "expo-router";
 import ImageViewer from "../app/ImageViewer";
+import React, { useRef, useState } from "react";
 import RenderHTML from "react-native-render-html";
 import { useBookmarks } from "../context/BookmarkContext";
 import UseDynamicStyles from "../context/UseDynamicStyles";

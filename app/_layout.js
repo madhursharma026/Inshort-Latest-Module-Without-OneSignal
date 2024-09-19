@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import Constants from "expo-constants";
 import { View, StatusBar, LogBox } from "react-native";
 import { setupOneSignal } from "../context/SetupOneSignal";
+import { ReadNewsProvider } from "../context/ReadNewsContext";
 import { LanguageProvider } from "../context/LanguageContext";
 import { BookmarkProvider } from "../context/BookmarkContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -20,7 +21,9 @@ const Layout = () => {
       <ThemeProvider>
         <LanguageProvider>
           <BookmarkProvider>
-            <ThemedLayout />
+            <ReadNewsProvider>
+              <ThemedLayout />
+            </ReadNewsProvider>
           </BookmarkProvider>
         </LanguageProvider>
       </ThemeProvider>

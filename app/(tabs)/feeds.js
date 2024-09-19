@@ -1,13 +1,15 @@
 import tw from "twrnc";
 import { APIURL } from "@env";
 import SingleNews from "../../components/SingleNews";
-import { Dimensions, View, Text } from "react-native";
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import { useLanguage } from "../../context/LanguageContext";
+import { useReadNews } from "../../context/ReadNewsContext";
+import { Dimensions, View, Text, Alert } from "react-native";
 import UseDynamicStyles from "../../context/UseDynamicStyles";
-import React, { useState, useEffect, useCallback } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 
 const client = new ApolloClient({
   uri: APIURL,
@@ -32,7 +34,9 @@ const GET_NEWS_BY_LANGUAGE_QUERY = gql`
 `;
 
 const FeedsScreen = () => {
+  const carouselRef = useRef(null);
   const { language } = useLanguage();
+  const { readArticles } = useReadNews();
   const dynamicStyles = UseDynamicStyles();
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -57,6 +61,37 @@ const FeedsScreen = () => {
     };
     fetchArticles();
   }, [language]);
+
+  const filteredArticles = articles.filter(
+    (article) => !readArticles.some((read) => read.id === article.id)
+  );
+
+  const handleSnapToItem = async (index) => {
+    try {
+      const article = filteredArticles[index];
+      console.log(article);
+      const readArticlesKey = "readArticles";
+      const existingArticlesJSON = await AsyncStorage.getItem(readArticlesKey);
+      const existingArticles = existingArticlesJSON
+        ? JSON.parse(existingArticlesJSON)
+        : [];
+      if (!existingArticles.some((a) => a.id === article.id)) {
+        existingArticles.push(article);
+        await AsyncStorage.setItem(
+          readArticlesKey,
+          JSON.stringify(existingArticles)
+        );
+      }
+    } catch (error) {
+      console.error("Failed to save article or show alert", error);
+    }
+  };
+
+  useEffect(() => {
+    if (filteredArticles.length > 0 && carouselRef.current) {
+      handleSnapToItem(0);
+    }
+  }, [filteredArticles]);
 
   const renderCarouselItem = ({ item, index }) => (
     <SingleNews item={item} index={index} />
@@ -84,20 +119,22 @@ const FeedsScreen = () => {
     if (error) {
       return <StatusMessage message={`Error: ${error}`} />;
     }
-    if (articles.length === 0) {
+    if (filteredArticles.length === 0) {
       return <StatusMessage message="No articles available" />;
     }
 
     return (
       <View>
         <Carousel
+          ref={carouselRef}
           loop={false}
           mode={"stack"}
           vertical={true}
-          data={articles}
           width={windowWidth}
           height={windowHeight}
+          data={filteredArticles}
           renderItem={renderCarouselItem}
+          onSnapToItem={handleSnapToItem}
           customAnimation={animationStyle}
         />
       </View>
