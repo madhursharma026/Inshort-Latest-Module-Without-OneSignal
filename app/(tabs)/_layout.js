@@ -5,13 +5,13 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 export default function Layout() {
   const screenOptions = {
     headerShown: false,
-    tabBarLabelStyle: tw`text-base`,
+    tabBarLabel: "", // Remove text label
   };
 
   return (
     <Tabs
       screenOptions={{
-        tabBarStyle: tw`h-18 pt-2 pb-1`,
+        tabBarStyle: tw`h-18 pt-2 pb-1 bg-black`, // Set black background
       }}
     >
       {/* Discover Tab */}

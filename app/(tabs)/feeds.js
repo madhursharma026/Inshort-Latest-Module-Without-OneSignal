@@ -69,7 +69,6 @@ const FeedsScreen = () => {
   const handleSnapToItem = async (index) => {
     try {
       const article = filteredArticles[index];
-      console.log(article);
       const readArticlesKey = "readArticles";
       const existingArticlesJSON = await AsyncStorage.getItem(readArticlesKey);
       const existingArticles = existingArticlesJSON

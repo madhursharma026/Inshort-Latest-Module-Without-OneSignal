@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   useWindowDimensions,
+  Alert,
 } from "react-native";
 import tw from "twrnc";
 import React from "react";
@@ -47,7 +48,7 @@ const ImageViewer = ({ visible, imageUri, onClose }) => {
             resizeMode="contain"
             accessibilityLabel="View Image"
             onError={() => {
-              console.log("Error loading image");
+              Alert.alert("Error loading image");
             }}
           />
         </View>
