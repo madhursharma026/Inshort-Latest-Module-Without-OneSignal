@@ -16,6 +16,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+console.log("API URL:", APIURL);
+
 const GET_NEWS_BY_LANGUAGE_QUERY = gql`
   query GetNewsByLanguage($language: String!) {
     newsByLanguage(language: $language) {
