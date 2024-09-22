@@ -18,6 +18,7 @@ import { useRouter } from "expo-router";
 import ImageViewer from "../app/ImageViewer";
 import React, { useRef, useState } from "react";
 import RenderHTML from "react-native-render-html";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useBookmarks } from "../context/BookmarkContext";
 import UseDynamicStyles from "../context/UseDynamicStyles";
 
@@ -193,7 +194,7 @@ const SingleNews = ({ item }) => {
           }}
         />
 
-        <View style={tw`flex-row items-center justify-between`}>
+        {/* <View style={tw`flex-row items-center justify-between`}>
           <Text style={dynamicStyles.textColor}>
             Short by{" "}
             <Text style={tw`font-bold`}>{item.author ?? "unknown"}</Text>
@@ -210,6 +211,28 @@ const SingleNews = ({ item }) => {
             >
               {isBookmarked ? "🔖 Bookmarked" : "🔖 Bookmark"}
             </Text>
+          </TouchableOpacity>
+        </View> */}
+        <View style={tw`flex-row items-center justify-between`}>
+          <Text style={dynamicStyles.textColor}>
+            Short by{" "}
+            <Text style={tw`font-bold`}>{item.author ?? "unknown"}</Text>
+          </Text>
+
+          <TouchableOpacity onPress={handleBookmarkPress} style={tw`p-2`}>
+            {isBookmarked ? (
+              <FontAwesome
+                size={24}
+                name="bookmark"
+                color={isBookmarked ? "blue" : dynamicStyles.textColor.color}
+              />
+            ) : (
+              <FontAwesome
+                name="bookmark-o"
+                size={24}
+                color={isBookmarked ? "green" : dynamicStyles.textColor.color}
+              />
+            )}
           </TouchableOpacity>
         </View>
 

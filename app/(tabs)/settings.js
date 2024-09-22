@@ -29,7 +29,6 @@ const Settings = () => {
         Settings
       </Text>
 
-      {/* Dark Mode Toggle */}
       <View
         style={tw`py-3 border-b border-gray-300 flex-row items-center justify-between`}
       >
@@ -41,14 +40,11 @@ const Settings = () => {
         />
       </View>
 
-      {/* Navigation Links */}
       <TouchableOpacity
         style={tw`py-3 border-b border-gray-300 flex-row items-center justify-between`}
-        onPress={() => router.push("TermsOfService")}
+        onPress={() => router.push("ReadNews")}
       >
-        <Text style={[tw`text-base`, dynamicStyles.textColor]}>
-          Terms of Service
-        </Text>
+        <Text style={[tw`text-base`, dynamicStyles.textColor]}>History</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -62,12 +58,20 @@ const Settings = () => {
 
       <TouchableOpacity
         style={tw`py-3 border-b border-gray-300 flex-row items-center justify-between`}
+        onPress={() => router.push("TermsOfService")}
+      >
+        <Text style={[tw`text-base`, dynamicStyles.textColor]}>
+          Terms of Service
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={tw`py-3 border-b border-gray-300 flex-row items-center justify-between`}
         onPress={() => router.push("ContactUs")}
       >
         <Text style={[tw`text-base`, dynamicStyles.textColor]}>Contact Us</Text>
       </TouchableOpacity>
 
-      {/* Language Dropdown */}
       <View
         style={tw`py-3 border-b border-gray-300 flex-row items-center justify-between`}
       >
@@ -87,7 +91,6 @@ const Settings = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Dropdown Options */}
       {dropdownVisible && (
         <View
           style={[

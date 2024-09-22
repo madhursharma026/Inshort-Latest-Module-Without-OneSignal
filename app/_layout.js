@@ -45,15 +45,26 @@ function ThemedLayout() {
           { backgroundColor },
         ]}
       >
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "fade",
+          }}
+        >
           <Stack.Screen name="onboarding" />
-          {/* <Stack.Screen name="onboarding/screen2" />
-          <Stack.Screen name="onboarding/screen3" /> */}
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="BookmarkNews/index" />
+          <Stack.Screen name="ReadNews/index" />
           <Stack.Screen name="ContactUs/index" />
           <Stack.Screen name="TermsOfService/index" />
-          <Stack.Screen name="LinkViewer/index" />
+          <Stack.Screen
+            name="LinkViewer/index"
+            options={{
+              presentation: "modal",
+              gestureDirection: "vertical",
+              animation: "slide_from_bottom",
+            }}
+          />
           <Stack.Screen name="ImageViewer/index" />
           <Stack.Screen name="SingleArticle/index" />
         </Stack>

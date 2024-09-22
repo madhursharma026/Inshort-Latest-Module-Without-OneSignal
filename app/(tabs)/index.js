@@ -22,8 +22,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-console.log("API URL:", APIURL);
-
 const GET_NEWS_BY_LANGUAGE_QUERY = gql`
   query {
     articles {
@@ -43,7 +41,7 @@ const DiscoverScreen = () => {
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visibleArticles, setVisibleArticles] = useState(2);
+  const [visibleArticles, setVisibleArticles] = useState(5);
 
   const fetchArticles = async () => {
     try {
